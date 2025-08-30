@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Shape Detection and Jewelry Recommendation</title>
+    
+</head>
+<body>
+    <h1>Face Shape Detection and Jewelry Recommendation</h1>
+
+    <!-- Camera and File Upload Section -->
+    <div id="camera-container" style="position: relative; width: 100%; max-width: 500px; margin-bottom: 20px;">
+        <video id="camera" autoplay style="width: 100%; max-width: 500px; height: auto;"></video>
+        <canvas id="canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: auto; display: none;"></canvas>
+    </div>
+
+    <div id="start-button">
+        <button onclick="startCamera()">Start Camera</button>
+    </div>
+
+    <div id="buttons" style="display: none; margin-bottom: 20px;">
+        <button onclick="capture()">Capture</button>
+        <button onclick="resetCamera()">Reset</button>
+        <input type="file" id="fileUpload" accept="image/*" onchange="uploadImage(event)">
+    </div>
+
+    <div id="loading" style="display: none;">
+        <p>Analyzing the face shape...</p>
+        <img src="https://example.com/loading.gif" alt="Loading" />
+    </div>
+    
+    <div id="captured-image" style="display:none; margin-bottom: 20px;">
+        <h3>Captured Image</h3>
+        <img id="captured-img" src="" alt="Captured Face Image" style="width: 100%; max-width: 300px; margin-bottom: 20px;" />
+        <p id="face-shape-text"></p>
+    </div>
+
+    <div id="result"></div>
+    
+    <div id="recommendation-section" style="display:none;">
+        <h2>Recommended Jewelry for Your Face Shape</h2>
+         
+        <!-- Filter Section -->
+        <button onclick="toggleFilter()">Filter</button>
+        <div id="filter-section" style="display:none; margin-top: 20px;">
+            <label for="category">Occasion:</label>
+            <select id="category" onchange="applyFilters()">
+                <option value="">All Occasions</option>
+                <option value="Wedding">Wedding</option>
+                <option value="Party">Party</option>
+                <option value="Casual">Casual</option>
+            </select>
+        
+            <label for="material">Material:</label>
+            <select id="material" onchange="applyFilters()">
+                <option value="">All Materials</option>
+                <option value="Gold">Gold</option>
+                <option value="Silver">Silver</option>
+                <option value="Platinum">Platinum</option>
+            </select>
+        
+            <label for="type">Type:</label>
+            <select id="type" onchange="applyFilters()">
+                <option value="">All Types</option>
+                <option value="Necklace">Choker</option>
+                <option value="Earring">Earring</option>
+                <option value="Chain">Chain</option>
+                <option value="Choker">Choker</option>
+                <option value="Chain and Earring set">Chain and Earring set</option>
+                <option value="Y-chain">Y-chain</option>
+                <option value="Layered-chain">Layered-chain</option>
+                <option value="Tops">Tops</option>
+                <option value="Long-Neckless">Long-Neckless</option>
+                <option value="Short-neckless">Short-neckless</option>
+            </select>
+        </div>
+    </div>
+        <div id="jewelry-list" class="jewelry-grid"></div>
+       
+        <div id="jewelry-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <img id="modal-img" alt="Jewelry">
+                <p id="modal-text"></p>
+            </div>
+        </div>
+
+</body>
+</html>
+
+<script>
+    let jewelryData = [];
+    let filteredJewelry = [];
+
+    // Start the camera
+    function startCamera() {
+        const video = document.getElementById('camera');
+        const constraints = {
+            video: { facingMode: 'user' }
+        };
+    
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                video.srcObject = stream;
+                document.getElementById('camera-container').style.display = 'block';
+                document.getElementById('start-button').style.display = 'none';
+                document.getElementById('buttons').style.display = 'block';
+            });
+    }
+    
+    // Capture image from the camera
+    function capture() {
+        const canvas = document.getElementById('canvas');
+        const video = document.getElementById('camera');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageData = canvas.toDataURL('image/jpeg');
+
+        // Hide the video and show the canvas with captured image
+        document.getElementById('camera').style.display = 'none';
+        document.getElementById('canvas').style.display = 'block';
+
+        // Display the captured image in the captured image section
+        const capturedImage = document.getElementById('captured-img');
+        capturedImage.src = imageData;
+
+        // Show the captured image section
+        document.getElementById('captured-image').style.display = 'block';
+
+        // Analyze the face shape
+        analyzeFaceShape(imageData);
+    }
+    
+    // Reset camera
+    function resetCamera() {
+        document.getElementById('captured-image').style.display = 'none';
+        document.getElementById('camera').style.display = 'block';
+        document.getElementById('canvas').style.display = 'none';
+        document.getElementById('start-button').style.display = 'block';
+        document.getElementById('buttons').style.display = 'none';
+        document.getElementById('result').innerHTML = '';
+        document.getElementById('recommendation-section').style.display = 'none';
+    }
+
+    // Upload image
+    function uploadImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+    
+        reader.onload = function () {
+            analyzeFaceShape(reader.result);
+        };
+    
+        reader.readAsDataURL(file);
+    }
+    function analyzeFaceShape(imageData) {
+        const formData = new FormData();
+        formData.append('file', dataURItoBlob(imageData));
+    
+        fetch('/analyze', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(data => {
+                    throw new Error(data.error);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            displayResults(data);
+        })
+        .catch(error => {
+
+        .catch(error => {
+            if (error.message.includes("Detected gender: Male")) {
+                alert("Warning: System is designed for women or girls only. Please upload a suitable image.");
+            } else {
+                alert(error.message);
+            }
+        });
+            alert(error.message); // Display the error message
+        });
+    }
+    // 
+    // Convert Data URL to Blob
+    function dataURItoBlob(dataURI) {
+        const byteString = atob(dataURI.split(',')[1]);
+        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+    
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+    
+        return new Blob([ab], { type: mimeString });
+    }
+    
+    // Display results including face shape and jewelry recommendations
+    function displayResults(data) {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `<p>Face Shape: ${data.face_shape.class}</p>
+                           <p>Confidence: ${data.face_shape.confidence.toFixed(2)}</p>`;
+
+        // Display the detected face shape in the captured image section
+        const faceShapeText = document.getElementById('face-shape-text');
+        faceShapeText.innerHTML = `Detected Face Shape: ${data.face_shape.class}`;
+    
+        const jewelrySection = document.getElementById('recommendation-section');
+        jewelrySection.style.display = 'block';
+        const jewelryList = document.getElementById('jewelry-list');
+        jewelryList.innerHTML = '';  // Clear previous recommendations
+
+        // Filter jewelry based on selected filter criteria
+        filteredJewelry = data.jewelry_recommendations.filter(item => filterJewelry(item));
+        
+        // Display jewelry recommendations in a grid format
+        if (filteredJewelry.length > 0) {
+            filteredJewelry.forEach(item => {
+                const jewelryItem = document.createElement('div');
+                jewelryItem.classList.add('jewelry-item');
+                jewelryItem.innerHTML = `
+                    <img src="${item.image_path}" alt="${item.type}" />
+                    <p>Category: ${item.category}</p>
+                    <p>Material: ${item.material}</p>
+                    <p>Occasion: ${item.occasion}</p>
+                    <p>Type: ${item.type}</p>
+                `;
+                jewelryList.appendChild(jewelryItem);
+            });
+        } else {
+            jewelryList.innerHTML = `<p>No jewelry recommendations match the selected filters.</p>`;
+        }
+         
+    }
+
+    // Toggle the filter section
+    function toggleFilter() {
+        const filterSection = document.getElementById('filter-section');
+        filterSection.style.display = filterSection.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Filter jewelry based on selected filter options
+    function filterJewelry(item) {
+        const category = document.getElementById('category').value;
+        const material = document.getElementById('material').value;
+        const occasion = document.getElementById('occasion').value;
+        const type = document.getElementById('type').value;
+
+        return (category === 'all' || item.category === category) &&
+               (material === 'all' || item.material === material) &&
+               (occasion === 'all' || item.occasion === occasion) &&
+               (type === 'all' || item.type === type);
+    }
+    function displayResults(data) {
+
+       const resultDiv = document.getElementById('result');
+resultDiv.innerHTML = `<p>Face Shape: ${data.face_shape.class}</p>`;
+
+        // Display the detected face shape in the captured image section
+        const faceShapeText = document.getElementById('face-shape-text');
+        faceShapeText.innerHTML = `Detected Face Shape: ${data.face_shape.class}`;
+    
+
+        // Store the complete jewelry list from the server response
+        jewelryData = data.jewelry_recommendations || [];
+        
+        // Show the recommendation section
+        const jewelrySection = document.getElementById('recommendation-section');
+        jewelrySection.style.display = 'block';
+        
+        // Apply any active filters
+        applyFilters();
+    }
+    function applyFilters() {
+        // Get selected filter values
+        const selectedCategory = document.getElementById('category').value;
+        const selectedMaterial = document.getElementById('material').value;
+        const selectedType = document.getElementById('type').value;
+    
+        // Filter the jewelry data based on selected filters
+        const filteredJewelry = jewelryData.filter(item => {
+            let matchesCategory = selectedCategory ? item.category === selectedCategory : true;
+            let matchesMaterial = selectedMaterial ? item.material === selectedMaterial : true;
+            let matchesType = selectedType ? item.type === selectedType : true;
+            
+            return matchesCategory && matchesMaterial && matchesType;
+        });
+    
+        // Display the filtered jewelry items
+        const jewelryList = document.getElementById('jewelry-list');
+        jewelryList.innerHTML = '';  // Clear previous recommendations
+    
+        if (filteredJewelry.length > 0) {
+            filteredJewelry.forEach(item => {
+                const jewelryItem = document.createElement('div');
+                jewelryItem.classList.add('jewelry-item');
+                jewelryItem.innerHTML = `
+                    <img src="${item.image_path}" alt="${item.type}" />
+                    <p>Category: ${item.category}</p>
+                    <p>Material: ${item.material}</p>
+                    <p>Type: ${item.type}</p>
+                    <p>Color: ${item.color}</p>
+                `;
+                
+                // Add interactivity - when clicked, show more details
+                jewelryItem.onclick = function() {
+                    showJewelryDetails(item);
+                };
+    
+                jewelryList.appendChild(jewelryItem);
+            });
+        } else {
+            jewelryList.innerHTML = '<p>No jewelry found for the selected filters.</p>';
+        }
+    }
+
+    function showJewelryDetails(item) {
+        const modal = document.getElementById('jewelry-modal');
+        document.getElementById('modal-img').src = item.image_path;
+        document.getElementById('modal-text').innerHTML = `
+            <strong>Category:</strong> ${item.category}<br>
+            <strong>Type:</strong> ${item.type}<br>
+            <strong>Material:</strong> ${item.material}`;
+        modal.style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('jewelry-modal').style.display = 'none';
+    }
+    
+    // Show more details when a jewelry item is clicked
+   
+</script>
+
+<style>
+    /* Global Styles */
+    
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+    
+    /* Header */
+    h1, h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #6a0dad; /* Gold */
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: bold;
+    }
+    
+    /* Buttons */
+    button {
+        background: linear-gradient(to right, #7d3c98, #9b59b6); /* Purple Gradient */
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    button:hover {
+        transform: scale(1.1);
+        background: #6a1b9a; /* Darker Purple */
+    }
+    
+    /* Camera Section */
+    #camera-container {
+        margin: 30px auto;
+        text-align: center;
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        border: 2px solid #6a0dad; /* Gold */
+        border-radius: 15px;
+        padding: 20px;
+       background: #ffffff;/* Soft Cream */
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 0.7s ease-in-out;
+    }
+    
+    video {
+        border-radius: 10px;
+    }
+    
+    /* Captured Image Section */
+    #captured-image {
+        margin: 20px auto;
+        text-align: center;
+        animation: fadeIn 0.7s ease-in-out;
+    }
+    
+    #captured-img {
+        max-width: 300px;
+        border: 3px solid #8e44ad; /* Purple */
+        border-radius: 10px;
+    }
+    
+    #face-shape-text {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #7d3c98; /* Vibrant Purple */
+        margin-top: 10px;
+        text-align: center;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    /* Filters */
+    #filter-section {
+        padding: 15px;
+        background-color: #edcaf1;;
+        border: 2px solid #8e44ad;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    #filter-section select {
+        padding: 10px;
+        font-size: 1rem;
+        border: 2px solid #9b59b6;
+        border-radius: 6px;
+        margin-right: 10px;
+        color: #2c003e; /* Dark Purple */
+    }
+    
+    /* Jewelry Grid */
+    .jewelry-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin: 20px;
+    }
+    
+    .jewelry-item {
+        background-color: #edcaf1;;
+        padding: 15px;
+        border: 2px solid  #6a0dad;
+        border-radius: 12px;
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .jewelry-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .jewelry-item img {
+        width: 100%;
+        border-radius: 8px;
+    }
+    
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 60px 0;
+    }
+    
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 600px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        text-align: center;
+    }
+    
+    .modal-content img {
+        width: 60%;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .close {
+        color: #800000; /* Maroon */
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        float: right;
+    }
+    
+    .close:hover {
+        color: #f4d03f; /* Gold */
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+</style>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jewelry Tips for Your Face Shape</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="try.html">Try On</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="guide.html">Guidelines</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Tips Section -->
+    <section id="tips" class="tips-section">
+        <h2>Jewelry Tips for Your Face Shape</h2>
+        <p>Here’s some expert advice on which jewelry suits different face shapes. Make the right choices to enhance your beauty!</p>
+        <div class="tips-container">
+            <div class="tip">
+                <div class="tip-header">
+                    <h3>Oval Face Shape</h3>
+                    <img src="{{ url_for('static', filename='images/oval.jpg') }}" alt="Oval Face" class="face-icon">
+                </div>
+                <p>If you have an oval face shape, you’re in luck! Almost any jewelry style will suit you. For earrings, go for hoops or drop earrings to accentuate your natural symmetry. For necklaces, try pendants or choker-style necklaces to highlight your neckline.</p>
+            </div>
+            <div class="tip">
+                <div class="tip-header">
+                    <h3>Round Face Shape</h3>
+                    <img src="{{ url_for('static', filename='images/round.jpg') }}" alt="Round Face" class="face-icon">
+                </div>
+                <p>For round faces, the goal is to add length and angles. Long, dangling earrings and sharp geometric designs will give your face a more elongated appearance. A V-shaped necklace or a long pendant necklace is a great choice to create the illusion of a longer neck.</p>
+            </div>
+            <div class="tip">
+                <div class="tip-header">
+                    <h3>Square Face Shape</h3>
+                    <img src="{{ url_for('static', filename='images/square.jpg') }}" alt="Square Face" class="face-icon">
+                </div>
+                <p>Square faces benefit from jewelry that softens sharp angles. Opt for round, curvy earrings like hoops or studs. A soft, flowing necklace will also add contrast to your defined jawline, balancing out the strong angles of your face.</p>
+            </div>
+            <div class="tip">
+                <div class="tip-header">
+                    <h3>Oblong Face Shape</h3>
+                    <img src="{{ url_for('static', filename='images/oblong.jpg') }}" alt="Oblong Face" class="face-icon">
+                </div>
+                <p>For oblong faces, the aim is to add width. Go for earrings that are wider than they are long, like studs or button earrings. For necklaces, shorter styles like chokers or collars will create the illusion of more width and complement the length of your face.</p>
+            </div>
+            <div class="tip">
+                <div class="tip-header">
+                    <h3>Heart Face Shape</h3>
+                    <img src="{{ url_for('static', filename='images/heart.jpg') }}" alt="Heart Face" class="face-icon">
+                </div>
+                <p>Heart-shaped faces have a wider forehead and narrow chin. To balance your features, try long earrings like drops or teardrops. A necklace with a sweetheart or oval shape can help soften the angles of your chin and add harmony to your face shape.</p>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 Face Shape Jewelry Recommendation System</p>
+    </footer>
+</body>
+</html>

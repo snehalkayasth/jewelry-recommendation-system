@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Shape Jewellery Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('try_on') }}">Try On</a></li>
+                <li><a href="{{ url_for('help') }}">Help</a></li>
+                <li><a href="{{ url_for('tips') }}">Tips</a></li>
+                <li><a href="{{ url_for('guide') }}">Guidelines</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Image Slider -->
+    <section id="home" class="slider">
+        <div class="slider-container">
+            <div class="slide">
+                <img src="{{ url_for('static', filename='images/g.jpg') }}" alt="Jewellery Style 1">
+                <div class="caption">
+                    <p>Discover the Perfect Jewellery for Your Unique Face Shape. Start Your Personalized Jewellery Experience Today!</p>
+                    <button onclick="location.href='{{ url_for('try_on') }}'">Try It Now</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="{{ url_for('static', filename='images/f.jpg') }}" alt="Jewellery Style 2">
+                <div class="caption">
+                    <p>Elegance Tailored to You. Handpicked Jewellery That Matches Your Style.</p>
+                    <button onclick="location.href='{{ url_for('try_on') }}'">Try It Now</button>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="{{ url_for('static', filename='images/h.jpg') }}" alt="Jewellery Style 3">
+                <div class="caption">
+                    <p>See Yourself Sparkle! Try It On Virtually – Explore Endless Possibilities.</p>
+                    <button onclick="location.href='{{ url_for('try_on') }}'">Try It Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left and Right Arrows -->
+        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+    </section>
+
+    <!-- Recommendations Poster -->
+    <section id="recommendations-section" class="section recommendations">
+        <h2>Personalized Recommendations</h2>
+        <div>
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/b.jpg') }}" alt="Jewellery for Oval Face">
+                <div class="overlay">Effortlessly scan your face to identify your unique face shape in seconds.</div>
+            </div>
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/c.jpg') }}" alt="Jewellery for Round Face">
+                <div class="overlay">Our smart system curates personalized Jewellery recommendations tailored to your face shape, preferred attire, and style.</div>
+            </div>
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/d.jpg') }}" alt="Jewellery for Heart Face">
+                <div class="overlay">See yourself shine! Virtually preview how our recommended Jewellery elevates your look – guaranteed to make you smile.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Guide Section -->
+    <section id="guide" class="guide-section">
+        <h2>Discover Your Perfect Jewellery Style</h2>
+        <p>Follow these steps to understand how our AI-powered system recommends Jewellery based on your face shape.</p>
+        <button id="start-guide-btn">Start Guide</button>
+        <div class="steps-container">
+            <div class="step" id="step1">
+                <div class="circle">1</div>
+                <p>Upload or capture your photo using our system's camera interface.</p>
+            </div>
+            <div class="step" id="step2">
+                <div class="circle">2</div>
+                <p>The system detects your face landmarks and identifies features.</p>
+            </div>
+            <div class="step" id="step3">
+                <div class="circle">3</div>
+                <p>Facial attributes are analyzed to determine your face shape (Oval, Round, Heart, etc.).</p>
+            </div>
+            <div class="step" id="step4">
+                <div class="circle">4</div>
+                <p>Based on your face shape, personalized Jewellery recommendations are generated.</p>
+            </div>
+        </div>
+        <div id="final-step" class="hidden">
+            <h3>You're All Set!</h3>
+            <p>Now, try it yourself and explore personalized recommendations.</p>
+            <a href="{{ url_for('try_on') }}" class="btn try-yourself-btn">Try Yourself</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; Jewellery Recommendation System based on Face Shape </p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Shape Jewelry Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('try_on') }}">Try On</a></li>
+                <li><a href="{{ url_for('help') }}">Help</a></li>
+                <li><a href="{{ url_for('tips') }}">Tips</a></li>
+                <li><a href="{{ url_for('guide') }}">Guidelines</a></li>
+             
+            </ul>
+        </nav>
+    </header>
+
+        <!-- Guidelines Section -->
+    <section id="guidelines" class="guidelines-section">
+        <h2>How to Use the Face Shape Jewelry System</h2>
+        <div class="guidelines-container">
+            <div class="guideline" id="guideline1">
+                <div class="arrow">➡️</div>
+                <p>Set the camera angle properly to ensure the best face detection.</p>
+            </div>
+            <div class="guideline" id="guideline2">
+                <div class="arrow">➡️</div>
+                <p>Avoid background noise and make sure only one person is visible for accurate results.</p>
+            </div>
+            <div class="guideline" id="guideline3">
+                <div class="arrow">➡️</div>
+                <p>If uploading a photo, ensure it's clear and the full face is displayed.</p>
+            </div>
+            <div class="guideline" id="guideline4">
+                <div class="arrow">➡️</div>
+                <p>Ensure good lighting to avoid shadows and improve the system's accuracy.</p>
+            </div>
+            <div class="guideline" id="guideline5">
+                <div class="arrow">➡️</div>
+                <p>Avoid wearing hats, glasses, or anything that may obscure your face features.</p>
+            </div>
+            <div class="guideline" id="guideline6">
+                <div class="arrow">➡️</div>
+                <p>Keep your face facing the camera directly for the most accurate shape detection.</p>
+            </div>
+        </div>
+        <div id="final-step-guidelines">
+            <h3>Ready to Try?</h3>
+            <p>Follow the guidelines above and explore how our AI recommends your perfect jewelry style.</p>
+            <a href="index.html" class="btn try-yourself-btn">Try Yourself</a>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 Face Shape Jewelry Recommendation System</p>
+    </footer>
+</body>
+</html>

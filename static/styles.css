@@ -1,0 +1,742 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Navbar Styles */
+header {
+    background-color: #6a0dad; /* Purple */
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    color: #d8b4e2; /* Light Purple */
+}
+
+/* Slider Styles */
+.slider {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.slider-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    position: relative;
+}
+
+.slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.caption {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.caption h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.caption p {
+    font-size: 18px;
+}
+
+button {
+    background-color: #007bff; /* Blue */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Left and Right Arrows */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 100;
+    border-radius: 50%;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+/*  Styles */
+ 
+
+
+/* Gradient Background for Guide Section */
+#guidelines {
+    background: linear-gradient(to bottom, #f3e5f5, #d8b4e2); /* Light Purple Gradient */
+    padding: 20px;
+    color: #4b0082; /* Deep Purple Accent */
+}
+
+/* Specific Section Styles */
+section {
+    padding: 40px;
+}
+
+h2 {
+    color: #4b0082; /* Deep Purple Accent */
+}
+/* poster */
+#recommendations-section {
+    text-align: center;
+    padding-right: 100px;
+    max-width: 1000px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#recommendations-section div {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.image-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    overflow: hidden;
+}
+
+#recommendations-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out; /* Smooth image zoom on hover */
+}
+
+.image-container:hover img {
+    transform: scale(1.1); /* Slight zoom-in effect on hover */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(170, 125, 240, 0.7); /* Light purple color with transparency */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: scale(1.1); /* Initial slight enlargement to create an attractive effect */
+}
+
+.image-container:hover .overlay {
+    opacity: 1; /* Makes the overlay visible */
+    transform: scale(1); /* Smoothly transitions the overlay to its original size */
+}
+
+/* Media queries for responsiveness */
+
+/* Tablet-sized screens (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    .image-container {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+/* Mobile-sized screens (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .image-container {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* Very small mobile screens (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .image-container {
+        width: 100px;
+        height: 100px;
+    }
+
+    #recommendations-section div {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* recommendatoion model tryon page */
+
+#camera-container {
+    margin: 20px auto;
+}
+
+#camera, #canvas {
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid #6a0dad;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+button, select {
+    margin: 15px 0;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #6a0dad;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover, select:hover {
+    background-color: #55008f;
+}
+
+.hidden {
+    display: none;
+}
+
+#result-container {
+    margin-top: 20px;
+}
+.btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background: #D1C4E9;
+    color: #4A148C;
+    font-weight: 600;
+    transition: transform 0.3s;
+}
+.btn:hover {
+    transform: scale(1.05);
+}
+.section {
+    padding: 3rem 2rem;
+    text-align: center;
+}
+.about, .guide, .recommendations {
+    background: #F3E5F5;
+    margin: 2rem auto;
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 1200px;
+}
+.recommendations img {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px;
+    transition: transform 0.3s;
+}
+.recommendations img:hover {
+    transform: scale(1.1);
+}
+ /* Button Styling */
+ #start-guide-btn {
+    padding: 10px 20px;
+    background-color: #6a0dad;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#start-guide-btn:hover {
+    background-color: #55008f;
+}
+/* Enhanced Guide Section Styling */
+/* Button Styling */
+#start-guide-btn {
+    padding: 10px 20px;
+    background-color: #6a0dad;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#start-guide-btn:hover {
+    background-color: #55008f;
+}
+
+/* Enhanced Guide Section Styling */
+.guide-section {
+    padding: 30px;
+    text-align: center;
+    background: linear-gradient(to bottom right, #f3e5f5, #d8b4e2);
+    color: #4b0082;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.guide-section p {
+    margin: 10px 0 20px;
+    font-size: 16px;
+}
+
+/* Steps Container */
+.steps-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.step {
+    width: 180px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: scale(0.5);
+    opacity: 0;
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.step.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #6a0dad;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+#final-step {
+    margin-top: 20px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6a0dad;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #55008f;
+}
+
+/* Fade In Animation for Final Step */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Responsive Design */
+
+/* Tablet-sized screens (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    .guide-section {
+        padding: 20px; /* Reduce padding for tablets */
+        max-width: 90%; /* Make the section a bit narrower */
+    }
+
+    .steps-container {
+        gap: 15px; /* Reduce the space between steps */
+    }
+
+    .step {
+        width: 150px; /* Adjust step width */
+    }
+
+    .circle {
+        width: 45px; /* Adjust circle size */
+        height: 45px;
+    }
+
+    .btn {
+        padding: 8px 16px; /* Adjust button size */
+    }
+}
+
+/* Mobile-sized screens (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .guide-section {
+        padding: 15px; /* Adjust padding for mobile */
+        max-width: 95%; /* Make section width more fluid */
+    }
+
+    .steps-container {
+        gap: 10px; /* Further reduce space between steps */
+    }
+
+    .step {
+        width: 120px; /* Adjust step size for small screens */
+    }
+
+    .circle {
+        width: 40px; /* Adjust circle size for small screens */
+        height: 40px;
+    }
+
+    .btn {
+        padding: 6px 14px; /* Adjust button size */
+    }
+}
+
+/* Very small mobile screens (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .guide-section {
+        padding: 10px; /* Further reduce padding for very small screens */
+    }
+
+    .steps-container {
+        flex-direction: column; /* Stack steps vertically */
+        align-items: center; /* Center-align the steps */
+        gap: 15px; /* Add more space between stacked steps */
+    }
+
+    .step {
+        width: 100%; /* Make steps full width */
+        padding: 15px; /* Reduce padding inside each step */
+    }
+
+    .circle {
+        width: 35px; /* Smaller circle for tiny screens */
+        height: 35px;
+        font-size: 18px; /* Smaller font size for circle */
+    }
+
+    .btn {
+        padding: 5px 12px; /* Smaller buttons for mobile */
+    }
+}
+/* guide section */
+/* Guidelines Section Styling */
+/* Guidelines Section Styling */
+.guidelines-section {
+    padding: 30px;
+    background-color: #f3e5f5;
+    border-radius: 10px;
+    text-align: left; /* Align text to the left */
+    color: #4b0082;
+    margin: 20px auto;
+    max-width: 900px;
+}
+
+.guidelines-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeInGuidelines 1s ease-in-out forwards;
+}
+
+.guideline {
+    display: flex; /* Use flexbox to align arrow and text on the same line */
+    align-items: center; /* Vertically align arrow and text */
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: guidelineFadeIn 0.5s ease-out forwards;
+}
+
+.guideline:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.guideline:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.guideline:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.guideline:nth-child(4) {
+    animation-delay: 1.5s;
+}
+
+.guideline:nth-child(5) {
+    animation-delay: 2s;
+}
+
+.guideline:nth-child(6) {
+    animation-delay: 2.5s;
+}
+
+/* Fade-in effect for each guideline */
+@keyframes guidelineFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade-in effect for the whole container */
+@keyframes fadeInGuidelines {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Arrow Styling */
+.arrow {
+    font-size: 30px;
+    margin-right: 15px; /* Space between arrow and text */
+    color: #6a0dad;
+    animation: arrowAnimation 0.5s ease-in-out;
+}
+
+/* Animation for the arrow */
+@keyframes arrowAnimation {
+    0% {
+        transform: translateX(-10px);
+        opacity: 0;
+    }
+    50% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(10px);
+        opacity: 1;
+    }
+}
+
+/* Button Styling */
+.btn {
+    padding: 10px 20px;
+    background-color: #6a0dad;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #55008f;
+}
+/* tips.html */
+/* Tips Section Styling */
+.tips-section {
+    padding: 40px;
+    background-color: #edcaf1;
+    border-radius: 10px;
+    color: #4b0082;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 900px;
+}
+
+.tips-section h2 {
+    font-size: 2em;
+    color: #330d4c;
+    margin-bottom: 20px;
+}
+
+.tips-section p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* Tips Container Styling */
+.tips-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.tip {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeInTips 1s ease-in-out forwards;
+}
+
+/* Fade-in effect for each tip */
+@keyframes fadeInTips {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tip Header Styling */
+.tip-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.face-icon {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 5px 5px 5px 5px;
+}
+
+/* Individual Tip Styling */
+.tip h3 {
+    font-size: 1.5em;
+    color: #6a0dad;
+}
+
+.tip p {
+    font-size: 1.1em;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+/* Responsive Layout for Mobile */
+@media (max-width: 768px) {
+    .tips-container {
+        flex-direction: column;
+    }
+
+    .tip-header {
+        flex-direction: column;
+    }
+
+    .face-icon {
+        margin-bottom: 10px;
+    }
+}
+/* contact page */
+/* try page */
+.tryon-section {
+    padding: 20px;
+    text-align: center;
+    background: #f3e5f5;
+    color: #4b0082;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.upload-section, .camera-section {
+    margin: 15px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6a0dad;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #55008f;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    background-color: #6a0dad; /* Example color */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+

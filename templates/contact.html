@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Face Shape Jewelry</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="try.html">Try On</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="tips.html">Tips</a></li>
+                <li><a href="guide.html">Guidelines</a></li>
+            /* Contact Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: #6a0dad;
+    margin: 0;
+}
+
+header nav ul li {
+    display: inline;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: inline-block;
+}
+
+header nav ul li a:hover {
+    background-color: #55008f;
+}
+
+.contact-section {
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.contact-section h2 {
+    color: #4b0082;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #4b0082;
+}
+
+input[type="text"], input[type="email"], textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: #6a0dad;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #55008f;
+}
+
+.contact-info {
+    margin-top: 20px;
+}
+
+.contact-info h3 {
+    color: #4b0082;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #6a0dad;
+    color: white;
+}
+
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2>Contact Us</h2>
+        <p>We'd love to hear from you! Please fill out the form below or reach out to us directly using the provided contact details.</p>
+        
+        <!-- Contact Form -->
+        <form id="contact-form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject">
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <h3>Reach Us</h3>
+            <p>Email: support@faceshapejewelry.com</p>
+            <p>Phone: +1 (123) 456-7890</p>
+            <p>Address: 123 Fashion Ave, Purple City, PC 12345</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Face Shape Jewelry. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Shape Jewelry Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('try_on') }}">Try On</a></li>
+                <li><a href="{{ url_for('help') }}">Help</a></li>
+                <li><a href="{{ url_for('tips') }}">Tips</a></li>
+                <li><a href="{{ url_for('guide') }}">Guidelines</a></li>
+              
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Guide Section -->
+    <section id="guide" class="guide-section">
+        <h2>Discover Your Perfect Jewelry Style</h2>
+        <p>Follow these steps to understand how our AI-powered system recommends jewelry based on your face shape.</p>
+        <button id="start-guide-btn">Start Guide</button>
+        <div class="steps-container">
+            <div class="step" id="step1">
+                <div class="circle">1</div>
+                <p>Upload or capture your photo using our system's camera interface.</p>
+            </div>
+            <div class="step" id="step2">
+                <div class="circle">2</div>
+                <p>The system detects your face landmarks and identifies features.</p>
+            </div>
+            <div class="step" id="step3">
+                <div class="circle">3</div>
+                <p>Facial attributes are analyzed to determine your face shape (Oval, Round, Heart, etc.).</p>
+            </div>
+            <div class="step" id="step4">
+                <div class="circle">4</div>
+                <p>Based on your face shape, personalized jewelry recommendations are generated.</p>
+            </div>
+        </div>
+
+        <!-- Final Step and Button -->
+        <div id="final-step" class="hidden">
+            <h3>You're All Set!</h3>
+            <p>Now, try it yourself and explore personalized recommendations.</p>
+            <a href="index.html" class="btn try-yourself-btn">Try Yourself</a>
+        </div>
+        
+        </section>
+
+    <br><br>      <!-- Footer -->
+      <footer>
+        <p>&copy; 2024 Face Shape Jewelry Recommendation System</p>
+    </footer>
+
+
+</body>
+</html>

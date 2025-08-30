@@ -1,0 +1,34 @@
+cat > .gitignore << 'EOF'
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Models & datasets (keep off GitHub)
+*.h5
+*.caffemodel
+*.dat
+*.pth
+*.pt
+*.onnx
+*.pb
+*.tflite
+jewelry_dataset.csv
+shape_predictor_68_face_landmarks.dat
+
+# Large docs & media
+*.pptx
+Project screenshots and PPT/
+Test case Images/
+
+# App images (optional: keep only a few small screenshots)
+static/images/
+templates/images/
+screenshots/
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+EOF
